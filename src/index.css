@@ -2,7 +2,7 @@
 @import "tailwindcss";
 
 @plugin "daisyui" {
-  themes: npl --default --prefersdark;
+  themes: npl --default --prefersdark, light;
 }
 
 @plugin "daisyui/theme" {
@@ -13,7 +13,7 @@
   --color-body-dark: rgb(30, 30, 30);
   --color-base-15: rgb(30, 30, 30 / 15%);
   --color-base-content: rgb(249, 249, 244);
-  --color-primary: rgb(211, 54, 130)
+  --color-primary: rgb(211, 54, 130);
   --color-primary-content:rgb(225, 226, 163);
   --color-secondary: rgb(133, 153, 0);
   --color-secondary-content: oklch(19% 0.035 85);
