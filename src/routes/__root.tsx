@@ -7,7 +7,7 @@ export const Route = createRootRoute({
 
 function RootLayout() {
   return (
-    <div data-theme="npl" className="min-h-screen text-base-content">
+    <div className="min-h-screen text-base-content">
       <header className="navbar sticky top-0 z-50 border-b border-base-content/10 backdrop-blur-xl sm:px-8">
         <nav className="mx-auto flex w-full max-w-7xl items-center">
           <Link to="/" className="flex items-center gap-3 text-lg font-black tracking-wide">

@@ -4,10 +4,16 @@
   "version": "0.0.0",
   "type": "module",
   "packageManager": "bun@1.4.0",
+  "engines": {
+    "bun": ">=1.4.0"
+  },
   "scripts": {
+    "check": "bun run build && bun run lint",
+    "create:app": "./scripts/create-app.sh",
     "dev": "vite",
     "build": "vite build && tsc -b --noEmit",
     "lint": "oxlint",
+    "prerequisites": "./scripts/create-app.sh --check",
     "preview": "vite preview"
   },
   "dependencies": {

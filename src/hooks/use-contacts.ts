@@ -49,6 +49,18 @@ export function useCreateContact() {
         .single()
 
       if (error) throw error
+
+      const { error: emailError } = await supabase.functions.invoke('send-contact-email', {
+        body: {
+          contactId: data.id,
+          name: data.name,
+          email: data.email,
+          subject: data.subject,
+          message: data.message,
+        },
+      })
+
+      if (emailError) throw emailError
       return data
     },
     onSuccess: () => {

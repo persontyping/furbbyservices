@@ -1,92 +1,109 @@
-# npl
+# Vite Supabase SPA template
 
-A single-page app with a Supabase-backed contact form (emailed via Amazon SES) and a full
-CRUD model for the submitted messages.
+A repeatable React single-page application template with a landing page, the full daisyUI
+component catalog, typed Supabase CRUD access, and a SendGrid-backed contact email function.
 
-## Stack
+## Included stack
 
-- **Bun** — package manager & runtime
-- **Vite + React + TypeScript** — SPA build tooling
-- **Tailwind CSS + shadcn/ui-style components** — styling
-- **TanStack Router** (file-based, `src/routes`) and **TanStack Query** — routing & data fetching
-- **Supabase** — Postgres database, RLS, and an Edge Function that sends email via Amazon SES
+- Bun 1.4+ for dependency management and scripts
+- Vite 8, React 19, and TypeScript 6
+- Tailwind CSS 4 through the official `@tailwindcss/vite` plugin
+- daisyUI 5 with all 35 built-in themes enabled and `wireframe` selected
+- TanStack Router and TanStack Query
+- Supabase Postgres, row-level security, typed CRUD hooks, and an Edge Function
+- SendGrid v3 Mail API
 
-## Project structure
+The landing page is at `/`. The reusable examples for all 68 daisyUI component categories
+are exported from `src/components/daisy-examples.tsx` and previewed at `/components`.
+Open `setup.html` directly in a browser for the visual installation and configuration guide.
 
+## Create another app
+
+From this repository, create a fresh project in an empty or nonexistent directory:
+
+```sh
+./scripts/create-app.sh ../my-app
 ```
-src/
-  routes/            TanStack Router file-based routes (__root, index, contact, messages)
-  components/        UI primitives (src/components/ui) + contact-form, contacts-list
-  hooks/use-contacts.ts   TanStack Query CRUD hooks (list/get/create/update/delete)
-  lib/                supabase client, cn() helper, zod contact schema
-  types/database.ts   Supabase `Database` type used by the typed client
 
-supabase/
-  migrations/0001_create_contacts.sql   contacts table + RLS policies
-  functions/send-contact-email          Edge Function that signs & calls the SES v2 API
+The creator checks the environment, copies only the safe template files, creates local
+environment files from the examples, installs the locked dependency graph, builds, lints,
+and initializes a new Git repository. It never copies `.git`, `node_modules`, build output,
+local Supabase state, or secrets.
+
+Useful modes:
+
+```sh
+./scripts/create-app.sh --check
+./scripts/create-app.sh --check --local-supabase
+./scripts/create-app.sh ../my-app --skip-install --no-git
 ```
 
-## Setup
+The default workflow uses hosted Supabase and does not require Docker. Add
+`--local-supabase` when you want the creator to require the Supabase CLI, Docker CLI, and a
+running Docker daemon for `supabase start`.
 
-1. Install dependencies:
+## Configure this app
+
+1. Install and validate the frontend:
 
    ```sh
-   bun install
+   bun install --frozen-lockfile
+   bun run check
    ```
 
-2. Create a Supabase project, then copy `.env.example` to `.env.local` and fill in:
+2. Copy `.env.example` to `.env.local` and set the hosted Supabase values:
 
-   ```
-   VITE_SUPABASE_URL=...
-   VITE_SUPABASE_ANON_KEY=...
+   ```dotenv
+   VITE_SUPABASE_URL=https://your-project.supabase.co
+   VITE_SUPABASE_ANON_KEY=your-anon-key
    ```
 
-3. Apply the database migration (requires the [Supabase CLI](https://supabase.com/docs/guides/cli)):
+3. Link the Supabase CLI and apply `supabase/migrations/0001_create_contacts.sql`:
 
    ```sh
-   supabase link --project-ref <your-project-ref>
+   supabase link --project-ref <project-ref>
    supabase db push
    ```
 
-4. Configure Amazon SES:
-   - Verify a sender identity/domain in SES.
-   - Create an IAM user/role with `ses:SendEmail` permission scoped to that identity.
-   - Copy `supabase/functions/.env.example` and set the AWS + SES + Supabase service-role secrets,
-     then push them to your project:
+4. Verify a sender identity in SendGrid. Copy `supabase/functions/.env.example` to
+   `supabase/functions/.env.local`, then set:
 
-     ```sh
-     supabase secrets set --env-file supabase/functions/.env.local
-     ```
+   ```dotenv
+   SENDGRID_API_KEY=SG.your-api-key
+   SENDGRID_FROM_EMAIL=verified-sender@example.com
+   SENDGRID_TO_EMAIL=inbox@example.com
+   SUPABASE_URL=https://your-project.supabase.co
+   SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+   ```
 
-5. Deploy the Edge Function:
+5. Upload secrets and deploy the Edge Function:
 
    ```sh
+   supabase secrets set --env-file supabase/functions/.env.local
    supabase functions deploy send-contact-email --no-verify-jwt
    ```
 
-6. Run the app:
+6. Start Vite:
 
    ```sh
    bun dev
    ```
 
-## Available scripts
+## Supabase CRUD
 
-- `bun dev` — start the Vite dev server
-- `bun run build` — type-check and build for production
-- `bun run preview` — preview the production build
-- `bun run lint` — run Oxlint
+The migration creates `public.contacts`, enables row-level security, permits anonymous
+inserts, and restricts reads, updates, and deletes to authenticated users. The typed client
+is in `src/lib/supabase.ts`, the current database contract is in `src/types/database.ts`, and
+TanStack Query hooks for create/read/update/delete are in `src/hooks/use-contacts.ts`. The
+create mutation invokes `send-contact-email` after storing the row; the function sends through
+SendGrid and records `emailed_at` with the service-role client.
 
-## How it works
+After changing the database, regenerate the checked-in type contract:
 
-- **Contact form** (`/contact`): validated with `react-hook-form` + `zod`, on submit it inserts
-  a row into the `contacts` table (Supabase CRUD "create") and invokes the `send-contact-email`
-  Edge Function to deliver the message via Amazon SES.
-- **Messages** (`/messages`): lists all `contacts` rows and supports editing and deleting them,
-  demonstrating the rest of the CRUD model via TanStack Query mutations.
-- **Edge Function**: signs a request to the SES v2 `SendEmail` REST API with AWS Signature
-  Version 4 (no AWS SDK dependency needed in Deno) and marks the row as emailed using the
-  Supabase service-role key.
+```sh
+supabase gen types typescript --linked > src/types/database.ts
+```
 
-
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+Do not expose `SUPABASE_SERVICE_ROLE_KEY` or `SENDGRID_API_KEY` through `VITE_*` variables;
+Vite embeds those variables in the browser bundle. Both secrets belong only in the Edge
+Function environment.
