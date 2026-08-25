@@ -36,7 +36,12 @@
 }
 
 @theme {
-  /* --font-sans: "Avenir Next", Avenir, "Trebuchet MS", sans-serif; */
+  /* --font-sans: "Avenir Next", Avenir, "Trebuchet MS", sans-serif; 
+    --font-space: Space Grotesk, sans-serif; // 300 - 700
+  --font-roboto: Roboto Mono, monospace; // 100 - 700
+  --font-urban: Urbanist, sans-serif; // 100 - 900
+  --font-dosis: Dosis, sans-serif; // 200 - 800
+  */
   --font-display: Georgia, Times New Roman, serif;
   --font-sans: Inter, sans-serif;
   --font-body: Arial, Helvetica, sans-serif;
