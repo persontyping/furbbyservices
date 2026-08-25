@@ -9,6 +9,7 @@ component catalog, typed Supabase CRUD access, and a SendGrid-backed contact ema
 - Vite 8, React 19, and TypeScript 6
 - Tailwind CSS 4 through the official `@tailwindcss/vite` plugin
 - daisyUI 5 with all 35 built-in themes enabled and `wireframe` selected
+- Self-hosted Outfit and Roboto Mono variable fonts through Fontsource
 - TanStack Router and TanStack Query
 - Supabase Postgres, row-level security, typed CRUD hooks, and an Edge Function
 - SendGrid v3 Mail API
