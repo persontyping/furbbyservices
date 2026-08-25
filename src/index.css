@@ -48,10 +48,10 @@
   --font-serif: PT Serif, serif;
   --font-mono: JetBrains Mono, monospace;
   --font-code: Courier New, Courier, monospace;
-  --font-space: Space Grotesk, sans-serif; // 300 - 700
-  --font-roboto: Roboto Mono, monospace; // 100 - 700
-  --font-urban: Urbanist, sans-serif; // 100 - 900
-  --font-dosis: Dosis, sans-serif; // 200 - 800
+  --font-space: Space Grotesk, sans-serif; 
+  --font-roboto: Roboto Mono, monospace; 
+  --font-urban: Urbanist, sans-serif; 
+  --font-dosis: Dosis, sans-serif; 
 }
 
 @layer base {
