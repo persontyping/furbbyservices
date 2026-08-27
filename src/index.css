@@ -4,6 +4,7 @@
 
 @plugin "daisyui" {
   themes: all;
+  logs: true;
 }
 
 @theme {
