@@ -10,18 +10,18 @@ export const Route = createFileRoute('/staff')({
 const values = [
   {
     icon: HeartHandshake,
-    title: 'Familiar faces',
-    copy: 'We keep care personal and consistent, so your pet can build trust with the people at the door.',
+    title: 'A trusted presence',
+    copy: 'One dependable point of contact who learns your home, pets and routines before you leave.',
   },
   {
     icon: MessageSquareText,
-    title: 'Thoughtful updates',
-    copy: 'You’ll hear how every visit went, including the small details that matter when you know them best.',
+    title: 'Useful updates',
+    copy: 'Clear reports on your pets, property and anything that needs your attention while you are away.',
   },
   {
     icon: PawPrint,
-    title: 'Pet-led care',
-    copy: 'We pay attention to body language, energy, and routine instead of treating every pet the same.',
+    title: 'Practical judgment',
+    copy: 'Everyday upkeep is handled carefully, and larger issues are identified early and coordinated with your tradespeople.',
   },
 ]
 
@@ -33,10 +33,10 @@ function StaffPage() {
           <div className="pb-14 sm:pb-20">
             <p className="text-sm font-bold uppercase text-primary">The people behind the care</p>
             <h1 className="mt-3 max-w-3xl text-4xl font-bold leading-tight [font-family:var(--font-mono)] sm:text-6xl">
-              A small team with time to notice.
+              People you can trust with the whole place.
             </h1>
             <p className="mt-6 max-w-2xl text-xl leading-8 text-base-content/65">
-              We believe dependable care starts with familiarity. That means listening closely, communicating clearly, and getting to know what makes each pet feel at home.
+              Good house care is attentive, practical and calm. We learn how your property runs, keep pets in their familiar routines and make sure small jobs do not become bigger problems.
             </p>
           </div>
 
