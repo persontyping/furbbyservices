@@ -42,7 +42,7 @@ export function Cabin() {
                     <img
                         src={LogoCabin}
                         alt="Cabin, a cozy retreat"
-                        className="absolute inset-0 z-10 size-full max-h-full max-w-full -translate-y-10 object-contain object-bottom drop-shadow-2xl"
+                        className="absolute inset-0 z-10 -translate-y-10 object-contain object-bottom drop-shadow-2xl"
                     />
                     <div className="absolute right-0 bottom-8 z-20 hidden bg-transparent px-5 py-4 text-secondary-content shadow-xl sm:block">
                         <p className="text-xs font-black uppercase tracking-widest">Your Home</p>

@@ -37,12 +37,12 @@ export function Bill() {
                     </div>
                 </div>
 
-                <div className="relative h-full max-h-full min-h-0 overflow-hidden lg:h-[min(72cqh,40rem)] lg:self-end">
+                <div className="relative h-full w-full min-h-0 overflow-contained lg:h-[min(72cqh,40rem)] lg:self-end">
                     <div className="absolute bottom-[10%] size-[60%] rounded-full bg-transparent blur-3xl" />
                     <img
                         src={LogoBill}
                         alt="Bill, a fluffy Pomeranian"
-                        className="absolute inset-0 z-10 size-full max-h-full max-w-full -translate-y-10 object-contain object-bottom drop-shadow-2xl"
+                        className="absolute inset-0 z-10 h-[90%] w-auto object-contain translate-y-1 object-bottom drop-shadow-2xl"
                     />
                     <div className="absolute right-0 bottom-8 z-20 hidden bg-transparent px-5 py-4 text-secondary-content shadow-xl sm:block">
                         <p className="text-xs font-black uppercase tracking-widest">Meet Bill</p>
